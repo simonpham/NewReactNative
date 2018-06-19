@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import Login from './oLoginScreen/login.js';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -20,20 +21,21 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+export class OLoginScreen extends Component<Props> {
+  static navigationOptions = {
+    title: 'Login',
+    headerStyle: {
+      backgroundColor: '#3498db',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <Login />
     );
   }
 }
