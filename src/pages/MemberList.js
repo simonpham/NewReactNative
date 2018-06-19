@@ -1,9 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, ImageBackground, TouchableHighlight, Alert, TextInput, ScrollView } from 'react-native';
+import FlatListData from '../../data/FlatListData';
+
+class FlatListItem extends React.Component {
+  render() {
+    return (
+      <ScrollView style={{
+                flex: 1,
+                backgroundColor: this.props.index % 2 == 0 ? 'mediumseagreen': 'tomato', 
+                margin: 20          
+          }}>
+        <Text style={{fontSize: 25}}>
+          <Text style={{fontWeight: "bold"}}>Name :</Text>
+          <Text>{this.props.item.Name}</Text>
+        </Text>
+        <Text style={{fontSize: 25}}>
+          <Text style={{fontWeight: "bold"}}>University :</Text>
+          <Text>{this.props.item.University}</Text>
+        </Text>
+      </ScrollView>
+    );
+  }
+}
 
 export class MemberListScreen extends React.Component {
   static navigationOptions = {
-    title: 'Greeting Screen',
+    title: 'List all members',
   };
 
   constructor(props) {
@@ -13,7 +35,20 @@ export class MemberListScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{
+        <FlatList 
+                data={FlatListData}
+                renderItem={
+                  ({item, index})=>{
+                    return (
+                      <FlatListItem item={item} index={index}>
+                      </FlatListItem>
+                    );
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                >
+
+        </FlatList>
+        {/* <Text style={{
             textAlign:'center',
             margin:20,
           }}>• Create a flat list showing name of each member of the team</Text>
@@ -28,7 +63,7 @@ export class MemberListScreen extends React.Component {
             underlayColor='#000' >
               <Text style={styles.buttonText}>Do not forget to push your code to GitHub frequently</Text>
           </TouchableHighlight>
-        </View>
+        </View> */}
       </View>
     );
   }
