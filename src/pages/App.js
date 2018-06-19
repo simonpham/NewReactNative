@@ -75,6 +75,7 @@ const RootStack = createStackNavigator(
     OLogin: OLoginScreen,
     ShowImage: ShowImageScreen,
     Profile: ProfileScreen,
+    Greeting: GreetingScreen,
     MemberList: MemberListScreen,
   },
   {
