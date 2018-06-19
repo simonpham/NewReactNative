@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput, Image } from 'react-native';
 
 export class GreetingScreen extends React.Component {
   static navigationOptions = {
@@ -11,16 +11,20 @@ export class GreetingScreen extends React.Component {
   }
  
   render() {
+	  const resizeMode = 'cover';
     return (
+	 <ImageBackground
+          style={{backgroundColor: '#000', 
+          flex: 1, 
+          position: 'absolute', 
+          width: '100%', 
+          height: '100%', 
+          justifyContent: 'center', }}
+          source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png'}}
+        >
       <View style={styles.container}>
-        <Text style={{
-            textAlign:'center',
-            margin:20,
-          }}>• Create a TextInput allowed user to enter name</Text>
-        <Text style={{
-            textAlign:'center',
-            margin:20,
-          }}>• Create an OK button will show a alert dialog showing greeting with entered name</Text>
+	 
+        {/* https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8FZBjGRdFfg_ryFOxPb9vJGIekm1aChdLU-fnOhQCcPuBdBUbQ*/}
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             ref={(btnLogin) => { this.btnLogin = btnLogin; }}
@@ -30,6 +34,7 @@ export class GreetingScreen extends React.Component {
           </TouchableHighlight>
         </View>
       </View>
+	  </ImageBackground> 
     );
   }
 }
