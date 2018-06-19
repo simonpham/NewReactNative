@@ -8,6 +8,7 @@ import { ShowImageScreen } from './ShowImageScreen.js'
 import { ProfileScreen } from './ProfileScreen.js'
 import { GreetingScreen } from './GreetingScreen.js'
 import { MemberListScreen } from './MemberList.js'
+import { OnboardingScreen } from './OnboardingScreen.js'
 
 export class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -57,6 +58,13 @@ export class HomeScreen extends React.Component {
           underlayColor='#000' >
             <Text style={ styles.buttonText }>[3rd day] MemberList screen</Text>
         </TouchableHighlight>
+
+        <TouchableHighlight
+          style={ styles.button }
+          onPress={ () => this.props.navigation.navigate('Onboarding', {title: 'Onboarding screen'}) }
+          underlayColor='#000' >
+            <Text style={ styles.buttonText }>[3rd day] Onboarding screen</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -77,6 +85,7 @@ const RootStack = createStackNavigator(
     Profile: ProfileScreen,
     Greeting: GreetingScreen,
     MemberList: MemberListScreen,
+    Onboarding: OnboardingScreen,
   },
   {
     initialRouteName: 'Home',
