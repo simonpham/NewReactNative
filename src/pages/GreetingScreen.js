@@ -8,8 +8,14 @@ export class GreetingScreen extends React.Component {
 
   constructor(props) {
     super(props);
+	this.state = {text: ''};
   }
- 
+ _onPressButton() {
+    Alert.alert(
+		'Greeting from Duy',
+		'Hello ' + this.state.text
+	)
+  }
   render() {
 	  const resizeMode = 'cover';
     return (
@@ -20,17 +26,30 @@ export class GreetingScreen extends React.Component {
           width: '100%', 
           height: '100%', 
           justifyContent: 'center', }}
-          source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png'}}
+          source={{uri: 'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350'}}
         >
       <View style={styles.container}>
-	 
-        {/* https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8FZBjGRdFfg_ryFOxPb9vJGIekm1aChdLU-fnOhQCcPuBdBUbQ*/}
+		<Image
+          style={{width: 400, height: 300}}
+          source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png'}}
+        />
+        {/* https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png*/}
+		<View style={{padding: 10}}>
+        <TextInput
+          style={{height: 40, borderColor: 'gray',borderWidth: 1, color : "blue", textAlign: 'center'
+			}}
+          placeholder="Type your name in here please"
+          onChangeText={(text) => this.setState({text})}
+        />
+		</View>
         <View style={styles.buttonContainer}>
+		
           <TouchableHighlight
-            ref={(btnLogin) => { this.btnLogin = btnLogin; }}
             style={styles.button}
+			 onPress={this._onPressButton.bind(this)}
             underlayColor='#000' >
-              <Text style={styles.buttonText}>Do not forget to push your code to GitHub frequently</Text>
+              <Text style={styles.buttonText}>Welcome to Front End team :D </Text>
+			 
           </TouchableHighlight>
         </View>
       </View>
