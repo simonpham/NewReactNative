@@ -13,6 +13,14 @@ export class GreetingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{
+            textAlign:'center',
+            margin:20,
+          }}>• Create a TextInput allowed user to enter name</Text>
+        <Text style={{
+            textAlign:'center',
+            margin:20,
+          }}>• Create an OK button will show a alert dialog showing greeting with entered name</Text>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             ref={(btnLogin) => { this.btnLogin = btnLogin; }}

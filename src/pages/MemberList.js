@@ -13,6 +13,14 @@ export class MemberListScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={{
+            textAlign:'center',
+            margin:20,
+          }}>• Create a flat list showing name of each member of the team</Text>
+        <Text style={{
+            textAlign:'center',
+            margin:20,
+          }}>• Try to give it a good look</Text>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             ref={(btnLogin) => { this.btnLogin = btnLogin; }}
