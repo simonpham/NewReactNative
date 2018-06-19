@@ -11,11 +11,11 @@ class FlatListItem extends React.Component {
                 margin: 20          
           }}>
         <Text style={{fontSize: 25}}>
-          <Text style={{fontWeight: "bold"}}>Name :</Text>
+          <Text style={{fontWeight: "bold"}}>Name:</Text>
           <Text>{this.props.item.Name}</Text>
         </Text>
         <Text style={{fontSize: 25}}>
-          <Text style={{fontWeight: "bold"}}>University :</Text>
+          <Text style={{fontWeight: "bold"}}>University:</Text>
           <Text>{this.props.item.University}</Text>
         </Text>
       </ScrollView>
