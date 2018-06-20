@@ -8,8 +8,8 @@ function updateText(value){
     if (space==='') return;
     this.setState({text:value})
 }
-function updateVisible(value, title){
-    this.setState({promptVisible:value, promptTitle:title})
+function updateVisible(value, title, oldText){
+    this.setState({promptVisible:value, promptTitle:title, promptOldText:oldText})
 }
 function reuse(value){
 
@@ -18,7 +18,7 @@ function reuse(value){
 export class ProfileScreen extends React.Component {
     constructor() {
         super();
-        this.state = {promptVisible:false, promptValue : '', promptTitle : ''}
+        this.state = {promptVisible:false, promptValue : '', promptTitle : '', promptOldText:''}
         updateVisible = updateVisible.bind(this)
     }
     static navigationOptions = {
@@ -39,6 +39,7 @@ export class ProfileScreen extends React.Component {
                 <Prompt
                     title = {'Edit ' + this.state.promptTitle}
                     inputPlaceholder = ''
+                    defaultValue = {this.state.promptOldText}
                     isVisible = {this.state.promptVisible}
                     submitButtonText = 'edit'
                     primaryColor = '#4286f4'
@@ -109,7 +110,7 @@ class Info extends React.Component {
                 <Icon
                     onPress = {() => {
                         reuse = updateText.bind(this)
-                        updateVisible(true,this.props.name);
+                        updateVisible(true,this.props.name,this.state.text);
                     }}
                     style = {{paddingTop:5, paddingStart : 10}}
                     name = 'edit'
