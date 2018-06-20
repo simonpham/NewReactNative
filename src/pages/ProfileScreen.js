@@ -37,16 +37,18 @@ export class ProfileScreen extends React.Component {
         return (
             <View style = {{flex : 1}}>
                 <Prompt
-                    title = {'Edit ' + 'Info'}
+                    title = {'Edit ' + this.state.promptTitle}
                     inputPlaceholder = ''
                     isVisible = {this.state.promptVisible}
                     submitButtonText = 'edit'
                     primaryColor = '#4286f4'
-                    onCancel = {() => this.setState({promptVisible:false})}
+                    onCancel = {() => {
+                        this.setState({promptVisible:false, promptValue:''})
+                    }}
                     onSubmit = {() => {
-                        this.setState({promptVisible:false});
-                        reuse(this.state.promptValue);
-                        reuse = (value) => {};
+                        this.setState({promptVisible:false, promptValue:''})
+                        reuse(this.state.promptValue)
+                        reuse = (value) => {}
                     }}
                     onChangeText = {(value) => this.setState({promptValue:value})}
                 /> 
@@ -107,7 +109,7 @@ class Info extends React.Component {
                 <Icon
                     onPress = {() => {
                         reuse = updateText.bind(this)
-                        updateVisible(true,this.state.name);
+                        updateVisible(true,this.props.name);
                     }}
                     style = {{paddingTop:5, paddingStart : 10}}
                     name = 'edit'
