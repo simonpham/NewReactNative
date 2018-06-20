@@ -4,10 +4,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Prompt from 'react-native-prompt-crossplatform';
 
 function updateText(value){
+    var space = value.trim();
+    if (space==='') return;
     this.setState({text:value})
 }
-function updateVisible(value){
-    this.setState({promptVisible:value})
+function updateVisible(value, title){
+    this.setState({promptVisible:value, promptTitle:title})
 }
 function reuse(value){
 
@@ -16,7 +18,7 @@ function reuse(value){
 export class ProfileScreen extends React.Component {
     constructor() {
         super();
-        this.state = {promptVisible:false, promptValue : ''}
+        this.state = {promptVisible:false, promptValue : '', promptTitle : ''}
         updateVisible = updateVisible.bind(this)
     }
     static navigationOptions = {
@@ -35,7 +37,7 @@ export class ProfileScreen extends React.Component {
         return (
             <View style = {{flex : 1}}>
                 <Prompt
-                    title = 'Edit Information'
+                    title = {'Edit ' + 'Info'}
                     inputPlaceholder = ''
                     isVisible = {this.state.promptVisible}
                     submitButtonText = 'edit'
@@ -105,7 +107,7 @@ class Info extends React.Component {
                 <Icon
                     onPress = {() => {
                         reuse = updateText.bind(this)
-                        updateVisible(true);
+                        updateVisible(true,this.state.name);
                     }}
                     style = {{paddingTop:5, paddingStart : 10}}
                     name = 'edit'
