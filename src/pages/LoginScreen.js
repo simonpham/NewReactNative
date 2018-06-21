@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput } from 'react-native';
 
-import AppTextInput from './AppTextInput';
+import AppTextInput from '../components/AppTextInput';
 
 const bgImage = 'https://www.wallpaperflare.com/static/550/819/826/glare-background-blur-dark-wallpaper.jpg'
 
