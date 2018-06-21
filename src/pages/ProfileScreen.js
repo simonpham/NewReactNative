@@ -1,25 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Prompt from 'react-native-prompt-crossplatform';
-
-function updateText(value){
-    var space = value.trim();
-    if (space==='') return;
-    this.setState({text:value})
-}
-function updateVisible(value, title, oldText){
-    this.setState({promptVisible:value, promptTitle:title, promptOldText:oldText})
-}
-function reuse(value){
-
-}
 
 export class ProfileScreen extends React.Component {
     constructor() {
         super();
-        this.state = {promptVisible:false, promptValue : '', promptTitle : '', promptOldText:''}
-        updateVisible = updateVisible.bind(this)
+        this.state = { isEditable: "none", buttonTitle: "Edit Profile" }
     }
     static navigationOptions = {
         title: 'Profile',
@@ -28,43 +14,39 @@ export class ProfileScreen extends React.Component {
         }
     }
     _onAvtButtonPressed() {
-    
+
     }
     _onSaveButtonPressed() {
-
+      switch (this.state.isEditable) {
+        case "none": {
+          this.setState({ isEditable: "auto", buttonTitle: "Save Profile" })
+          break
+        }
+        case "auto": {
+          this.setState({ isEditable: "none", buttonTitle: "Edit Profile" })
+          break
+        }
+      }
     }
     render() {
         return (
             <View style = {{flex : 1}}>
-                <Prompt
-                    title = {'Edit ' + this.state.promptTitle}
-                    inputPlaceholder = ''
-                    defaultValue = {this.state.promptOldText}
-                    isVisible = {this.state.promptVisible}
-                    submitButtonText = 'edit'
-                    primaryColor = '#4286f4'
-                    onCancel = {() => {
-                        this.setState({promptVisible:false, promptValue:''})
-                    }}
-                    onSubmit = {() => {
-                        this.setState({promptVisible:false, promptValue:''})
-                        reuse(this.state.promptValue)
-                        reuse = (value) => {}
-                    }}
-                    onChangeText = {(value) => this.setState({promptValue:value})}
-                /> 
                 <View style = {styles.avtcontainer}>
                     <Image source = {require('./profileScreen/default-avt.png')} style = {styles.img}/>
                     <Button title = 'Change' onPress = {this._onAvtButtonPressed}/>
                 </View>
-                <Info name = 'Name'/>
-                <Info name = 'Email'/>
-                <Info name = 'Phone'/>
+                <View pointerEvents = {this.state.isEditable} >
+                  <Info name = 'Name'/>
+                  <Info name = 'Email'/>
+                  <Info name = 'Phone'/>
+                </View>
                 <View style = {{
                     alignItems:'flex-end',
                     paddingEnd : 10,
                     paddingTop : 10}}>
-                    <Button  title = 'Save Profile' onPress = {this._onSaveButtonPressed}/>
+                    <Button
+                      title = { this.state.buttonTitle }
+                      onPress = {this._onSaveButtonPressed.bind(this)}/>
                 </View>
             </View>
         )
@@ -89,34 +71,16 @@ class Info extends React.Component {
         }
     }
     render() {
-        
         return (
             <View style = {styles.infocontainer}>
                 <Text style ={{fontSize : 15, flex : 1}}> {this.props.name} </Text>
-                {/* <View style = {{flex : 4}}>
+                <View style = {{flex : 4}}>
                     <TextInput
                         style = {{fontSize : 15}}
                         onChange = {(value) => this.setState({text:value})}
                         value = {this.state.text}
-                        editable = {false}
-                        
                     />
-                </View> */}
-                <View style = {{flex : 4}}>
-                    <Text style = {{fontSize : 15, borderBottomWidth: 1}} >
-                        {this.state.text}
-                    </Text>
                 </View>
-                <Icon
-                    onPress = {() => {
-                        reuse = updateText.bind(this)
-                        updateVisible(true,this.props.name,this.state.text);
-                    }}
-                    style = {{paddingTop:5, paddingStart : 10}}
-                    name = 'edit'
-                    size = {20}
-                />
-                
             </View>
         )
     }
