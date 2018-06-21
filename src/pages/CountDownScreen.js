@@ -1,8 +1,21 @@
 import React , { Component } from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput, Image } from 'react-native';
 import TimerCountdown from 'react-native-timer-countdown';
+import PustNotification from 'react-native-push-notification';
+
+var PushNotification = require('react-native-push-notification');
+
+
 
 export class CountDownScreen extends React.Component {
+    
+    componentDidMount(){
+        PushNotification.configure({
+    onNotification: function(notification) {
+        console.log( 'NOTIFICATION:', notification );}
+});
+    }
+    
   static navigationOptions = {
     title: 'CountDown Screen',
   };
@@ -44,7 +57,14 @@ const Timer = () => (
   <TimerCountdown
     initialSecondsRemaining={1500000}
     onTick={secondsRemaining => console.log('tick', secondsRemaining)}
-    onTimeElapsed={() => console.log('complete')}
+    onTimeElapsed={() => { 
+                   PushNotification.localNotificationSchedule({
+                   foreground: true,
+  message: "THIS IS MESSSSSSSSSSSs",
+                   title: "THIS IS TITLE", // (optional)
+  date: new Date(Date.now() + (1 * 1000)) // in 60 secs
+});
+                  }}
     allowFontScaling={true}
     style={{ fontSize: 20 }}
   />
