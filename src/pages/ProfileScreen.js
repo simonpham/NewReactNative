@@ -1,52 +1,52 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
-import { Header } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class ProfileScreen extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {isEdittable : false}
+    constructor() {
+        super();
+        this.state = { isEditable: "none", buttonTitle: "Edit Profile" }
+    }
+    static navigationOptions = {
+        title: 'Profile',
+        headerStyle:{
+            backgroundColor: '#4286f4'
+        }
     }
     _onAvtButtonPressed() {
 
     }
-    _onExitButtonPressed() {
-
-    }
     _onSaveButtonPressed() {
-
+      switch (this.state.isEditable) {
+        case "none": {
+          this.setState({ isEditable: "auto", buttonTitle: "Save Profile" })
+          break
+        }
+        case "auto": {
+          this.setState({ isEditable: "none", buttonTitle: "Edit Profile" })
+          break
+        }
+      }
     }
     render() {
         return (
-            <View>
-                <Header
-                    centerComponent = {{
-                      text : 'PROFILE',
-                      style : {color : '#fff', fontSize : 15, fontWeight : 'bold'}
-                    }}
-                />
+            <View style = {{flex : 1}}>
                 <View style = {styles.avtcontainer}>
                     <Image source = {require('./profileScreen/default-avt.png')} style = {styles.img}/>
                     <Button title = 'Change' onPress = {this._onAvtButtonPressed}/>
                 </View>
-                <Info name = 'Name'/>
-                <Info name = 'Email'/>
-                <Info name = 'Phone'/>
-                <View style = {styles.buttoncontainer}>
-                    <View style = {{
-                        alignItems : 'stretch',
-                        flexDirection: 'column',
-                        flex : 1,
-                        padding : 5}}>
-                        <Button title = 'Exit' onPress = {this._onExitButtonPressed}/>
-                    </View>
-                    <View style = {{
-                        alignItems : 'stretch',
-                        flexDirection: 'column',
-                        flex : 1,
-                        padding : 5}}>
-                        <Button title = 'Save' onPress = {this._onSaveButtonPressed}/>
-                    </View>
+                <View pointerEvents = {this.state.isEditable} >
+                  <Info name = 'Name'/>
+                  <Info name = 'Email'/>
+                  <Info name = 'Phone'/>
+                </View>
+                <View style = {{
+                    alignItems:'flex-end',
+                    paddingEnd : 10,
+                    paddingTop : 10}}>
+                    <Button
+                      title = { this.state.buttonTitle }
+                      onPress = {this._onSaveButtonPressed.bind(this)}/>
                 </View>
             </View>
         )
@@ -56,19 +56,28 @@ export class ProfileScreen extends React.Component {
 class Info extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            text : ''
+        switch (this.props.name) {
+            case 'Name':
+                this.state = {text:'Nguyen Van A'}
+                break;
+            case 'Email':
+                this.state = {text:'iamA@gmail.com'}
+                break;
+            case 'Phone':
+                this.state = {text:'0123456789'}
+                break;
+            default:
+                break;
         }
     }
     render() {
         return (
             <View style = {styles.infocontainer}>
                 <Text style ={{fontSize : 15, flex : 1}}> {this.props.name} </Text>
-                <View style = {{flex : 4, padding : 5, borderColor : '#000000', borderWidth : 1}}>
+                <View style = {{flex : 4}}>
                     <TextInput
                         style = {{fontSize : 15}}
-                        underlineColorAndroid = 'transparent'
-                        onChangeText = {(text) => this.setState({text})}
+                        onChange = {(value) => this.setState({text:value})}
                         value = {this.state.text}
                     />
                 </View>
@@ -87,11 +96,7 @@ const styles = StyleSheet.create(
         infocontainer: {
             flexDirection : 'row',
             alignItems : 'center',
-            padding : 5
-        },
-        buttoncontainer: {
-            flexDirection: 'row',
-            justifyContent : 'center'
+            padding : 10
         },
         img: {
             width: 120,
