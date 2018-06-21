@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput } from 'react-native';
 
+import AppTextInput from '../components/AppTextInput';
+
 const bgImage = 'https://www.wallpaperflare.com/static/550/819/826/glare-background-blur-dark-wallpaper.jpg'
 
 export class LoginScreen extends React.Component {
@@ -41,7 +43,7 @@ export class LoginScreen extends React.Component {
         <View style={styles.overlay}></View>
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
-            <TextInput
+            {/* <TextInput
               style={styles.editText}
               placeholderTextColor={'#ffffff'}
               underlineColorAndroid={'#ff5722'}
@@ -58,6 +60,16 @@ export class LoginScreen extends React.Component {
               secureTextEntry={true}
               placeholder="Password"
               onChangeText={(password) => this.setState({password})}
+            /> */}
+            <AppTextInput
+                returnKeyType={'next'}
+                label={'Username'}
+                onSubmitEditing={() => { this.tiPassword.focus(); }}
+            />
+            <AppTextInput
+                ref={(input) => { this.tiPassword = input; }}
+                secureTextEntry={true}
+                label={'Password'}
             />
           </View>
           <View style={styles.buttonContainer}>
