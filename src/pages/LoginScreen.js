@@ -62,11 +62,15 @@ export class LoginScreen extends React.Component {
               onChangeText={(password) => this.setState({password})}
             /> */}
             <AppTextInput
+                returnKeyType={'next'}
                 label={'Username'}
-                />
+                onSubmitEditing={() => { this.tiPassword.focus(); }}
+            />
             <AppTextInput
+                ref={(input) => { this.tiPassword = input; }}
+                secureTextEntry={true}
                 label={'Password'}
-                />
+            />
           </View>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
