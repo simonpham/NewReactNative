@@ -94,7 +94,7 @@ const RootStack = createStackNavigator(
     Greeting: GreetingScreen,
     MemberList: MemberListScreen,
     Onboarding: OnboardingScreen,
-      CountDown: CountDownScreen,
+    CountDown: CountDownScreen,
   },
   {
     initialRouteName: 'Home',
