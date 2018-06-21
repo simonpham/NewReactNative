@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { Component } from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput, Image } from 'react-native';
 import TimerCountdown from 'react-native-timer-countdown';
 
@@ -21,9 +21,23 @@ export class CountDownScreen extends React.Component {
 	  const resizeMode = 'cover';
     return (
 	 <View style={styles.container}>
-        <Timer />
+        <B />
       </View>
     );
+  }
+}
+class B extends Component {
+  state = { isPressed: false }
+  render() {
+    return (
+      <View styles={{ flex: 1 }}>
+        <Button
+          title={'RESET TIME'}
+          onPress={() => { this.setState({ isPressed: true }) }}
+        />
+        <Timer />
+      </View >
+    )
   }
 }
 const Timer = () => (
