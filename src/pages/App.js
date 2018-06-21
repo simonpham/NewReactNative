@@ -14,6 +14,7 @@ export class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
   };
+ 
   render() {
     return (
       <View style={ styles.buttonContainer }>

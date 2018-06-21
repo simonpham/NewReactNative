@@ -1,11 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput, Image } from 'react-native';
+import { Animated, StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput, Image } from 'react-native';
 
 export class GreetingScreen extends React.Component {
+	state = {
+    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+  }
   static navigationOptions = {
     title: 'Greeting Screen',
   };
-
+ 
   constructor(props) {
     super(props);
 	this.state = {text: ''};
@@ -15,8 +18,9 @@ export class GreetingScreen extends React.Component {
 		'Greeting from Duy',
 		'Hello ' + this.state.text
 	)
-  }
+ }
   render() {
+	  let { fadeAnim } = this.state;
 	  const resizeMode = 'cover';
     return (
 	 <ImageBackground
@@ -25,13 +29,16 @@ export class GreetingScreen extends React.Component {
           position: 'absolute', 
           width: '100%', 
           height: '100%', 
+		
           justifyContent: 'center', }}
           source={{uri: 'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350'}}
         >
+
       <View style={styles.container}>
-		<Image
+		<Animated.Image
           style={{width: 400, height: 300}}
-          source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png'}}
+          source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png',
+		  }}
         />
         {/* https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/RfeyEzE/welcome-background-video-for-your-next-event_v3mivpftox__F0000.png*/}
 		<View style={{padding: 10}}>
@@ -39,7 +46,12 @@ export class GreetingScreen extends React.Component {
           style={{height: 40, borderColor: 'gray',borderWidth: 1, color : "blue", textAlign: 'center'
 			}}
           placeholder="Type your name in here please"
+		  placeholderTextColor='black'
           onChangeText={(text) => this.setState({text})}
+		  onSubmitEditing={() => Alert.alert(
+		'Greeting from Duy',
+		'Hello ' + this.state.text
+		  )}
         />
 		</View>
         <View style={styles.buttonContainer}>
