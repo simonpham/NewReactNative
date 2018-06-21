@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, TouchableHighlight, Alert, TextInput } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import SplashScreen from 'react-native-splash-screen';
 
 import { LoginScreen } from './LoginScreen.js'
 import { OLoginScreen } from './OLoginScreen.js'
@@ -14,7 +15,15 @@ export class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
   };
- 
+  componentDidMount() {
+
+  	// do stuff while splash screen is shown
+
+      // After having done stuff (such as async tasks) hide the splash screen
+
+      SplashScreen.hide();
+
+  }
   render() {
     return (
       <View style={ styles.buttonContainer }>
