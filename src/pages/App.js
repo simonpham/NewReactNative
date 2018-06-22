@@ -10,7 +10,7 @@ import { GreetingScreen } from './GreetingScreen.js'
 import { MemberListScreen } from './MemberList.js'
 import { OnboardingScreen } from './OnboardingScreen.js'
 import { CountDownScreen } from './CountDownScreen.js'
-
+import { NSignUpScreen } from './NSignUpScreen.js';
 
 export class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -73,6 +73,13 @@ export class HomeScreen extends React.Component {
           underlayColor='#000' >
             <Text style={ styles.buttonText }>[5rd day] CountDown screen</Text>
         </TouchableHighlight>
+
+        <TouchableHighlight
+          style={ styles.button }
+          onPress={ () => this.props.navigation.navigate('SignUp', {title: 'SignUp screen'}) }
+          underlayColor='#000' >
+            <Text style={ styles.buttonText }>[Jun 21] Nguyen sign up screen</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -86,6 +93,7 @@ export default class App extends React.Component {
 
 const RootStack = createStackNavigator(
   {
+    SignUp: NSignUpScreen,
     Home: HomeScreen,
     Login: LoginScreen,
     OLogin: OLoginScreen,
