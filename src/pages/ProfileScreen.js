@@ -1,30 +1,44 @@
+
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Prompt from 'react-native-prompt-crossplatform';
 
-function updateText(value){
-    var space = value.trim();
-    if (space==='') return;
-    this.setState({text:value})
-}
-function updateVisible(value, title, oldText){
-    this.setState({promptVisible:value, promptTitle:title, promptOldText:oldText})
-}
-function reuse(value){
-
-}
-
 export class ProfileScreen extends React.Component {
     constructor() {
         super();
-        this.state = {promptVisible:false, promptValue : '', promptTitle : '', promptOldText:''}
-        updateVisible = updateVisible.bind(this)
+        this.state = {
+            promptVisible:false, 
+            promptValue : '', 
+            promptTitle : '', 
+            promptOldText:'',
+            NameInfo : 'Nguyen Van A',
+            EmailInfo : 'mr.A@gmail.com',
+            PhoneInfo : '0123456789'
+        }
     }
     static navigationOptions = {
         title: 'Profile',
         headerStyle:{
             backgroundColor: '#4286f4'
+        }
+    }
+    _onEditPressed(){
+        this.setState({promptVisible:false});
+        var nospace = this.state.promptValue.trim();
+        if (nospace === '') return;
+        switch (this.state.promptTitle) {
+            case 'Name':
+                this.setState({NameInfo:this.state.promptValue})
+                break;
+            case 'Email':
+                this.setState({EmailInfo:this.state.promptValue})
+                break;
+            case 'Phone':
+                this.setState({PhoneInfo:this.state.promptValue})
+                break;
+            default:
+                break;
         }
     }
     _onAvtButtonPressed() {
@@ -37,8 +51,11 @@ export class ProfileScreen extends React.Component {
         return (
             <View style = {{flex : 1}}>
                 <Prompt
-                    title = {'Edit ' + this.state.promptTitle}
+                    title = {'Editing ' + this.state.promptTitle}
                     inputPlaceholder = ''
+                    onBackButtonPress={()=>{
+                        this.setState({promptVisible:false, promptValue:''})
+                    }}
                     defaultValue = {this.state.promptOldText}
                     isVisible = {this.state.promptVisible}
                     submitButtonText = 'edit'
@@ -47,9 +64,7 @@ export class ProfileScreen extends React.Component {
                         this.setState({promptVisible:false, promptValue:''})
                     }}
                     onSubmit = {() => {
-                        this.setState({promptVisible:false, promptValue:''})
-                        reuse(this.state.promptValue)
-                        reuse = (value) => {}
+                        this._onEditPressed();
                     }}
                     onChangeText = {(value) => this.setState({promptValue:value})}
                 /> 
@@ -57,9 +72,9 @@ export class ProfileScreen extends React.Component {
                     <Image source = {require('./profileScreen/default-avt.png')} style = {styles.img}/>
                     <Button title = 'Change' onPress = {this._onAvtButtonPressed}/>
                 </View>
-                <Info name = 'Name'/>
-                <Info name = 'Email'/>
-                <Info name = 'Phone'/>
+                <Info name = 'Name' infotext = {this.state.NameInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Name', promptOldText : this.state.NameInfo})}/>
+                <Info name = 'Email' infotext = {this.state.EmailInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Email', promptOldText : this.state.EmailInfo})}/>
+                <Info name = 'Phone' infotext = {this.state.PhoneInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Phone', promptOldText : this.state.PhoneInfo})}/>
                 <View style = {{
                     alignItems:'flex-end',
                     paddingEnd : 10,
@@ -74,49 +89,22 @@ export class ProfileScreen extends React.Component {
 class Info extends React.Component {
     constructor(props) {
         super(props);
-        switch (this.props.name) {
-            case 'Name':
-                this.state = {text:'Nguyen Van A'}
-                break;
-            case 'Email':
-                this.state = {text:'iamA@gmail.com'}
-                break;
-            case 'Phone':
-                this.state = {text:'0123456789'}
-                break;
-            default:
-                break;
-        }
     }
     render() {
-        
         return (
             <View style = {styles.infocontainer}>
                 <Text style ={{fontSize : 15, flex : 1}}> {this.props.name} </Text>
-                {/* <View style = {{flex : 4}}>
-                    <TextInput
-                        style = {{fontSize : 15}}
-                        onChange = {(value) => this.setState({text:value})}
-                        value = {this.state.text}
-                        editable = {false}
-                        
-                    />
-                </View> */}
                 <View style = {{flex : 4}}>
                     <Text style = {{fontSize : 15, borderBottomWidth: 1}} >
-                        {this.state.text}
+                        {this.props.infotext}
                     </Text>
                 </View>
                 <Icon
-                    onPress = {() => {
-                        reuse = updateText.bind(this)
-                        updateVisible(true,this.props.name,this.state.text);
-                    }}
+                    onPress = {this.props.pressEdit}
                     style = {{paddingTop:5, paddingStart : 10}}
                     name = 'edit'
                     size = {20}
                 />
-                
             </View>
         )
     }
