@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Prompt from 'react-native-prompt-crossplatform';
+import { CustomizedButton } from './CustomizedButton';
 
 export class ProfileScreen extends React.Component {
     constructor() {
@@ -20,7 +21,7 @@ export class ProfileScreen extends React.Component {
     static navigationOptions = {
         title: 'Profile',
         headerStyle:{
-            backgroundColor: '#4286f4'
+            backgroundColor: '#ff5722'
         }
     }
     _onEditPressed(){
@@ -59,7 +60,7 @@ export class ProfileScreen extends React.Component {
                     defaultValue = {this.state.promptOldText}
                     isVisible = {this.state.promptVisible}
                     submitButtonText = 'edit'
-                    primaryColor = '#4286f4'
+                    primaryColor = '#ff5722'
                     onCancel = {() => {
                         this.setState({promptVisible:false, promptValue:''})
                     }}
@@ -70,7 +71,7 @@ export class ProfileScreen extends React.Component {
                 /> 
                 <View style = {styles.avtcontainer}>
                     <Image source = {require('./profileScreen/default-avt.png')} style = {styles.img}/>
-                    <Button title = 'Change' onPress = {this._onAvtButtonPressed}/>
+                    <CustomizedButton title = 'Change' onPress = {this._onAvtButtonPressed}/>
                 </View>
                 <Info name = 'Name' infotext = {this.state.NameInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Name', promptOldText : this.state.NameInfo})}/>
                 <Info name = 'Email' infotext = {this.state.EmailInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Email', promptOldText : this.state.EmailInfo})}/>
@@ -79,7 +80,7 @@ export class ProfileScreen extends React.Component {
                     alignItems:'flex-end',
                     paddingEnd : 10,
                     paddingTop : 10}}>
-                    <Button  title = 'Save Profile' onPress = {this._onSaveButtonPressed}/>
+                    <CustomizedButton  title = 'Save Profile' onPress = {this._onSaveButtonPressed}/>
                 </View>
             </View>
         )
