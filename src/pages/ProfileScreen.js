@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Prompt from 'react-native-prompt-crossplatform';
 import { CustomizedButton } from './CustomizedButton';
 
+
 export class ProfileScreen extends React.Component {
     constructor() {
         super();
@@ -43,14 +44,23 @@ export class ProfileScreen extends React.Component {
         }
     }
     _onAvtButtonPressed() {
-    
+
     }
     _onSaveButtonPressed() {
-
+      switch (this.state.isEditable) {
+        case "none": {
+          this.setState({ isEditable: "auto", buttonTitle: "Save Profile" })
+          break
+        }
+        case "auto": {
+          this.setState({ isEditable: "none", buttonTitle: "Edit Profile" })
+          break
+        }
+      }
     }
     render() {
         return (
-            <View style = {{flex : 1}}>
+            <View style = {{flex : 1}}
                 <Prompt
                     title = {'Editing ' + this.state.promptTitle}
                     inputPlaceholder = ''
@@ -69,10 +79,6 @@ export class ProfileScreen extends React.Component {
                     }}
                     onChangeText = {(value) => this.setState({promptValue:value})}
                 /> 
-                <View style = {styles.avtcontainer}>
-                    <Image source = {require('./profileScreen/default-avt.png')} style = {styles.img}/>
-                    <CustomizedButton title = 'Change' onPress = {this._onAvtButtonPressed}/>
-                </View>
                 <Info name = 'Name' infotext = {this.state.NameInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Name', promptOldText : this.state.NameInfo})}/>
                 <Info name = 'Email' infotext = {this.state.EmailInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Email', promptOldText : this.state.EmailInfo})}/>
                 <Info name = 'Phone' infotext = {this.state.PhoneInfo} pressEdit = {() => this.setState({promptVisible:true, promptTitle : 'Phone', promptOldText : this.state.PhoneInfo})}/>
